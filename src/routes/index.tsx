@@ -14,8 +14,7 @@ export const Route = createFileRoute("/")({
       { title: `${SITE.name} | ${SITE.tagline}` },
       {
         name: "description",
-        content:
-          "Good Deeds Network is a nonprofit in Lagos, Nigeria connecting givers and receivers through community outreach in Ikotun, free marketing classes, and volunteer powered support.",
+        content: SITE.description,
       },
       { name: "robots", content: "index, follow" },
       { property: "og:title", content: `${SITE.name} | ${SITE.tagline}` },
@@ -38,9 +37,9 @@ function Home() {
         <div className="mx-auto max-w-7xl px-6">
           <SectionHeader
             align="center"
-            eyebrow="Our mission"
-            title="Two hands. One network. Endless good."
-            description="Everyone has something to give, and everyone needs something to receive. From Ikotun outreach to free online classes, we make generosity intentional and dignified."
+            eyebrow={SITE.role}
+            title="Two hands. One platform. Endless good."
+            description={SITE.vision}
           />
           <MissionMindMap />
         </div>

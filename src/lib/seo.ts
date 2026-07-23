@@ -8,7 +8,7 @@ export function organizationJsonLd() {
     url: SITE.url,
     logo: `${SITE.url}${ASSETS.logo}`,
     description:
-      "A nonprofit platform connecting people who have something to give with those who need to receive. Community outreach, free classes, and free resources in Lagos, Nigeria.",
+      "A licensed and registered nonprofit building a trusted tech platform that connects people who have something to give with those who need to receive. Community outreach, free classes, and resources in Lagos, Nigeria.",
     email: SITE.email,
     telephone: SITE.phone,
     address: {
@@ -30,7 +30,7 @@ export function websiteJsonLd() {
     "@type": "WebSite",
     name: SITE.name,
     url: SITE.url,
-    description: "Connecting givers and receivers through outreach, free education, and community support.",
+    description: "A trusted tech platform connecting givers and receivers through outreach, free education, and community support.",
     publisher: {
       "@type": "Organization",
       name: SITE.name,

@@ -10,7 +10,7 @@ const nodes = [
   {
     icon: Users,
     title: "Receive",
-    body: "Access community, mentorship, and material support when you need it.",
+    body: "Access food, tutoring, a listening ear, mentorship, and community support when you need it.",
     step: "02",
   },
   {

@@ -18,7 +18,7 @@ export function SiteFooter() {
           <div>
             <BrandLogo link={false} imageClassName="h-12 w-12 rounded-xl object-cover shadow-[var(--shadow-card)]" />
             <p className="mt-5 text-sm leading-relaxed text-primary-foreground/75">
-              Connecting givers and receivers since {SITE.founded}. A licensed and registered nonprofit founded by {SITE.founder}.
+              {SITE.role} since {SITE.founded}. A licensed and registered nonprofit founded by {SITE.founder}.
             </p>
           </div>
 

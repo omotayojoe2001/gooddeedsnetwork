@@ -12,8 +12,7 @@ import { type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { ASSETS, SITE } from "../lib/site-data";
 import { organizationJsonLd, websiteJsonLd } from "../lib/seo";
-const DEFAULT_DESCRIPTION =
-  "Good Deeds Network is a nonprofit in Lagos, Nigeria connecting givers and receivers through community outreach, free marketing classes, and volunteer powered support.";
+const DEFAULT_DESCRIPTION = SITE.description;
 
 function NotFoundComponent() {
   return (
@@ -79,7 +78,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: `${SITE.name} | ${SITE.tagline}` },
       { name: "description", content: DEFAULT_DESCRIPTION },
-      { name: "keywords", content: "Good Deeds Network, nonprofit Nigeria, Ikotun outreach, Lagos charity, free marketing classes, volunteer Nigeria" },
+      { name: "keywords", content: "Good Deeds Network, givers and receivers, tech platform Nigeria, Ikotun outreach, Lagos, free marketing classes, volunteer Nigeria" },
       { name: "robots", content: "index, follow" },
       { name: "googlebot", content: "index, follow" },
       { name: "author", content: SITE.name },

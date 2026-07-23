@@ -11,7 +11,7 @@ export const Route = createFileRoute("/about")({
       { title: `About | ${SITE.name}` },
       {
         name: "description",
-        content: `Founded in ${SITE.founded} by ${SITE.founder}, Good Deeds Network is a licensed nonprofit connecting givers with receivers through outreach and free education in Lagos, Nigeria.`,
+        content: `Founded in ${SITE.founded} by ${SITE.founder}, ${SITE.name} is a licensed and registered nonprofit building a trusted platform for connecting givers and receivers.`,
       },
       { name: "robots", content: "index, follow" },
       { property: "og:title", content: `About ${SITE.name}` },
@@ -31,7 +31,7 @@ function About() {
       <PageHero
         eyebrow="About us"
         title="Ordinary people, doing extraordinary good."
-        description={`Good Deeds Network was founded in ${SITE.founded} by ${SITE.founder}. We are a licensed and registered nonprofit building a trusted platform for connecting givers and receivers.`}
+        description={`Founded in ${SITE.founded} by ${SITE.founder}. We are a licensed and registered nonprofit and ${SITE.role.toLowerCase()} building a trusted platform for connecting givers and receivers.`}
       />
 
       <section className="mx-auto max-w-7xl px-6 py-24">
@@ -40,16 +40,14 @@ function About() {
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Our story</p>
             <h2 className="mt-3 font-display text-4xl font-medium text-foreground md:text-5xl">Kindness, organised.</h2>
             <div className="mt-6 space-y-5 text-lg leading-relaxed text-muted-foreground">
-              <p>
-                Good Deeds Network began in {SITE.founded} with a single question: what if generosity were as easy as ordering a ride? What if the person who has an extra bag of rice could find, safely and quickly, the family that needs it?
-              </p>
+              <p>{SITE.vision}</p>
               <p>
                 We built a platform, and we hit the streets. Our first flagship outreach happened in{" "}
                 <strong className="text-foreground">Ikotun, Lagos</strong>, distributing essentials, listening to community leaders, and mapping needs. Alongside our physical outreach, we have run multiple{" "}
                 <strong className="text-foreground">free online marketing classes</strong>, giving small business owners the skills to earn independently.
               </p>
               <p>
-                Today we are a growing network of volunteers, educators, and givers, all coordinated around one belief: the world gets better when good deeds compound.
+                Today we are a growing network of volunteers, educators, and givers, all coordinated around one belief: generosity should be as simple as opening an app, and good deeds should compound.
               </p>
             </div>
           </div>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { PageShell, PageHero } from "@/components/page-shell";
 import { ASSETS, SITE } from "@/lib/site-data";
 import { canSubmitForm, isLikelySpam, isValidEmail, recordFormSubmit } from "@/lib/form-guard";
-import { Mail, MapPin, Phone, Send, ShieldCheck } from "lucide-react";
+import { Mail, MapPin, Phone, Send } from "lucide-react";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -83,19 +83,6 @@ function Contact() {
             <ContactRow icon={Mail} label="Email" value={SITE.email} href={`mailto:${SITE.email}`} />
             <ContactRow icon={Phone} label="Phone" value={SITE.phoneDisplay} href={`tel:${SITE.phone}`} />
             <ContactRow icon={MapPin} label="Address" value={SITE.location} />
-
-            <div className="rounded-2xl border border-border bg-secondary/50 p-5 sm:p-6">
-              <div className="flex items-start gap-3">
-                <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                <div>
-                  <p className="font-display text-lg font-medium text-foreground">No spam inbox</p>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    Unlike our old WordPress site, this form does not hit a server or plugin. It opens your email app
-                    after basic bot checks, so automated spam cannot flood our inbox.
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
 
           <form
@@ -109,7 +96,7 @@ function Contact() {
                 </div>
                 <h3 className="mt-6 font-display text-2xl font-medium text-foreground">Ready to send</h3>
                 <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-                  Your email app should open with your message. If it did not, write us directly at{" "}
+                  Your message is ready to send. If your email app did not open, write us directly at{" "}
                   <a href={`mailto:${SITE.email}`} className="font-semibold text-primary">
                     {SITE.email}
                   </a>

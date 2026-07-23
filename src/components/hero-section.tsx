@@ -54,7 +54,7 @@ export function HeroSection() {
       <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-16 sm:py-20 lg:min-h-[90vh] lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14 lg:py-24">
         <div className="order-1 lg:order-1">
           <div className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-primary-foreground/25 bg-primary-foreground/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.15em] text-accent backdrop-blur-md">
-            <Sparkles className="h-3.5 w-3.5 animate-float" /> Since {SITE.founded}
+            <Sparkles className="h-3.5 w-3.5 animate-float" /> {SITE.role} · Since {SITE.founded}
           </div>
 
           <h1 className="animate-fade-up animation-delay-150 mt-6 font-display text-[2.65rem] font-medium leading-[1.02] text-primary-foreground sm:text-5xl lg:text-6xl xl:text-7xl">
@@ -63,7 +63,7 @@ export function HeroSection() {
           </h1>
 
           <p className="animate-fade-up animation-delay-300 mt-6 max-w-xl text-base leading-relaxed text-primary-foreground/88 sm:text-lg">
-            We connect givers with receivers across Lagos and beyond. Share what you have. Receive what you need. Grow together.
+            {SITE.heroLead}
           </p>
 
           <div className="animate-fade-up animation-delay-450 mt-8 flex flex-wrap gap-3">
