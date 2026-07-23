@@ -79,7 +79,7 @@ export function SupportProjectDonate() {
       return;
     }
     if (!PAYSTACK_KEY) {
-      setError("Online payments are not configured yet. Please email us to support.");
+      setError(`We could not open checkout right now. Please email ${SITE.email} to support us.`);
       return;
     }
 
@@ -96,6 +96,8 @@ export function SupportProjectDonate() {
         ref: `gdn_project_${Date.now()}`,
         metadata: {
           custom_fields: [
+            { display_name: "First name", variable_name: "first_name", value: firstName.trim().slice(0, 80) },
+            { display_name: "Last name", variable_name: "last_name", value: lastName.trim().slice(0, 80) },
             { display_name: "Why supporting", variable_name: "support_reason", value: reason.trim().slice(0, 200) },
           ],
         },
@@ -181,16 +183,10 @@ export function SupportProjectDonate() {
           </p>
         )}
 
-        {!PAYSTACK_KEY && (
-          <p className="rounded-lg border border-amber-500/30 bg-amber-500/5 px-3 py-2.5 text-xs text-foreground/80">
-            Set <code>VITE_PAYSTACK_PUBLIC_KEY</code> in Vercel to enable payments.
-          </p>
-        )}
-
         <button
           type="button"
           onClick={donate}
-          disabled={loading || !PAYSTACK_KEY}
+          disabled={loading}
           className="flex w-full items-center justify-center gap-2 rounded-full bg-primary py-3.5 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-card)] hover:bg-primary-deep disabled:opacity-50"
         >
           {loading ? "Opening Paystack..." : "Support with Paystack"}

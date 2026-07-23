@@ -34,7 +34,7 @@ function Support() {
         description="Give any amount from ₦100. Every naira helps us ship platforms for givers, students, and communities."
       />
 
-      <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6">
+      <section className="mx-auto max-w-7xl px-4 pt-16 pb-20 sm:px-6 sm:pt-24">
         <div className="grid gap-10 lg:grid-cols-[1fr_380px] lg:items-start lg:gap-12 xl:grid-cols-[1fr_420px]">
           {/* Projects — left on desktop */}
           <div>
