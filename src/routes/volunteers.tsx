@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/page-shell";
+import { OptimizedImage } from "@/components/optimized-image";
 import { ASSETS, SITE } from "@/lib/site-data";
 import { ArrowRight, Heart, Users, HandHeart } from "lucide-react";
 
@@ -29,7 +30,7 @@ function Volunteers() {
 
       <section className="mx-auto max-w-7xl px-6 py-24">
         <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-[var(--shadow-elegant)]">
-          <img
+          <OptimizedImage
             src={ASSETS.volunteers}
             alt="Good Deeds Network volunteers needed. Join our team."
             className="w-full object-cover"
