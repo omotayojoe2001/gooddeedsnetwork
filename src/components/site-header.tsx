@@ -142,7 +142,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/40 bg-background/92 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-border/30 bg-background/88 backdrop-blur-2xl supports-[backdrop-filter]:bg-background/75">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5 sm:px-6">
         <BrandLogo imageClassName="h-10 w-10 rounded-xl object-cover shadow-[var(--shadow-card)] ring-1 ring-border/50 sm:h-11 sm:w-11" />
 
