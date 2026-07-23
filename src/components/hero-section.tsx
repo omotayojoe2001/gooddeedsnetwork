@@ -52,7 +52,7 @@ export function HeroSection() {
       <div className="section-mesh pointer-events-none absolute inset-0 opacity-30" aria-hidden />
 
       <div className="relative mx-auto grid max-w-7xl gap-10 px-6 py-16 sm:py-20 lg:min-h-[90vh] lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14 lg:py-24">
-        <div className="order-2 lg:order-1">
+        <div className="order-1 lg:order-1">
           <div className="animate-fade-up inline-flex items-center gap-2 rounded-full border border-primary-foreground/25 bg-primary-foreground/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.15em] text-accent backdrop-blur-md">
             <Sparkles className="h-3.5 w-3.5 animate-float" /> Since {SITE.founded}
           </div>
@@ -89,14 +89,14 @@ export function HeroSection() {
           </dl>
         </div>
 
-        {/* Always-visible hero image card — fixes mobile visibility */}
-        <div className="order-1 lg:order-2">
+        {/* Standalone hero card — below stats on mobile, right column on desktop */}
+        <div className="order-2 lg:order-2">
           <div className="animate-fade-up animation-delay-300 relative mx-auto max-w-md lg:max-w-none">
             <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-accent/40 via-primary-glow/30 to-transparent blur-2xl" aria-hidden />
             <div className="relative overflow-hidden rounded-[1.75rem] border border-primary-foreground/20 shadow-[0_32px_80px_-24px_oklch(0.18_0.16_268/0.65)]">
               <OptimizedImage
-                src={ASSETS.hero}
-                alt="Good Deeds Network volunteers at Ikotun outreach, Lagos"
+                src={ASSETS.heroCard}
+                alt="Good Deeds Network community outreach in Lagos"
                 className="aspect-[4/5] w-full object-cover object-[center_28%] sm:aspect-[5/6] lg:aspect-[4/5]"
                 width={720}
                 height={900}

@@ -18,6 +18,7 @@ export const FOUNDER_SOCIAL = {
 export const ASSETS = {
   logo: "/logo.jpg",
   hero: "/hero-outreach.jpg",
+  heroCard: "/image for hero section.jpeg",
   founder: "/founder.jpg",
   volunteers: "/volunteers.jpg",
   genrevNg: "/genrev-ng.png",

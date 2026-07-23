@@ -16,6 +16,7 @@ const OUTREACH_DIR = "Cloth the clothless outreach images ikotun";
 const KEEP_PATHS = new Set([
   "logo.jpg",
   "hero-outreach.jpg",
+  "image for hero section.jpeg",
   "founder.jpg",
   "volunteers.jpg",
   "genrev-ng.png",
@@ -37,6 +38,7 @@ const KEEP_PATHS = new Set([
 const RULES_BY_BASENAME = {
   "logo.jpg": { maxWidth: 320, jpegQuality: 85 },
   "hero-outreach.jpg": { maxWidth: 1920, jpegQuality: 82 },
+  "image for hero section.jpeg": { maxWidth: 1000, jpegQuality: 82 },
   "founder.jpg": { maxWidth: 1000, jpegQuality: 82 },
   "volunteers.jpg": { maxWidth: 1400, jpegQuality: 82 },
   "genrev-ng.png": { maxWidth: 512, webpQuality: 85 },
