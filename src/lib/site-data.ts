@@ -129,30 +129,48 @@ export const GALLERY_IMAGES = [
   `${OUTREACH_BASE}/20250116_190946.jpg`,
 ] as const;
 
-export const DONATION_TIERS = [
+/** Projects shown on /support with logos and build status */
+export const SUPPORT_PROJECTS = [
   {
-    name: "Friend",
-    amount: 500000,
-    amountDisplay: "₦5,000",
-    body: "Funds one care package for a family at our next outreach.",
-    cta: "Give ₦5,000",
+    name: "Good Deeds Platform",
+    body: "The official platform that directly connects givers and receivers.",
+    logo: ASSETS.logo,
+    status: "in_progress" as const,
+    statusLabel: "Work in progress",
   },
   {
-    name: "Partner",
-    amount: 2500000,
-    amountDisplay: "₦25,000",
-    body: "Sponsors one learner through a full free class cohort.",
-    cta: "Give ₦25,000",
-    featured: true,
+    name: "genrev.ng",
+    body: "Business growth tools for entrepreneurs. Every profit is channeled back to Good Deeds Network.",
+    logo: ASSETS.genrevNg,
+    status: "live" as const,
+    statusLabel: "Live",
+    url: "https://genrev.ng",
+    profitNote: true,
   },
   {
-    name: "Patron",
-    amount: 10000000,
-    amountDisplay: "₦100,000",
-    body: "Powers an entire local outreach day with logistics, supplies, and volunteers.",
-    cta: "Give ₦100,000",
+    name: "genrev.app",
+    body: "AI powered tools for creators. Every profit is channeled back to Good Deeds Network.",
+    logo: ASSETS.genrevApp,
+    status: "live" as const,
+    statusLabel: "Live",
+    url: "https://genrev.app",
+    profitNote: true,
+  },
+  {
+    name: "AI Education Platform",
+    body: "An AI app that helps students learn and grow with personalised support.",
+    status: "coming_soon" as const,
+    statusLabel: "Coming soon",
+  },
+  {
+    name: "Data & Airtime for Students",
+    body: "Making data and airtime more affordable, and giving subscriptions to students who need them.",
+    status: "in_progress" as const,
+    statusLabel: "In progress",
   },
 ] as const;
+
+export const MIN_DONATION_NAIRA = 100;
 
 export const PROJECTS = [
   {

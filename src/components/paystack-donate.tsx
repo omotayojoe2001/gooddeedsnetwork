@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
-import { ArrowRight } from "lucide-react";
-import { DONATION_TIERS, SITE } from "@/lib/site-data";
+import { ArrowRight, Heart, Lock } from "lucide-react";
+import { isValidEmail } from "@/lib/form-guard";
+import { MIN_DONATION_NAIRA, SITE } from "@/lib/site-data";
 
 declare global {
   interface Window {
@@ -8,6 +9,8 @@ declare global {
       setup: (options: {
         key: string;
         email: string;
+        firstname?: string;
+        lastname?: string;
         amount: number;
         currency?: string;
         ref?: string;
@@ -20,6 +23,9 @@ declare global {
 }
 
 const PAYSTACK_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY as string | undefined;
+
+const inputClass =
+  "w-full rounded-xl border border-border bg-background px-4 py-3 text-base text-foreground outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/20";
 
 function loadPaystackScript() {
   return new Promise<void>((resolve, reject) => {
@@ -42,168 +48,194 @@ function loadPaystackScript() {
   });
 }
 
-type PaystackDonateProps = {
-  amountKobo: number;
-  label: string;
-  featured?: boolean;
-  className?: string;
-};
-
-export function PaystackDonateButton({ amountKobo, label, featured = false, className = "" }: PaystackDonateProps) {
+export function SupportProjectDonate() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [amount, setAmount] = useState("");
+  const [reason, setReason] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const donate = useCallback(async () => {
-    if (!PAYSTACK_KEY) {
-      window.location.href = `mailto:${SITE.email}?subject=Donation%20to%20Good%20Deeds%20Network&body=Hello,%20I%20would%20like%20to%20support%20Good%20Deeds%20Network.`;
+    setError("");
+
+    if (!firstName.trim() || !lastName.trim()) {
+      setError("Please enter your first and last name.");
       return;
     }
-
-    const email = window.prompt("Enter your email to continue with your donation:");
-    if (!email) return;
+    if (!email.trim() || !isValidEmail(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+    const naira = Number(String(amount).replace(/,/g, ""));
+    if (!naira || naira < MIN_DONATION_NAIRA) {
+      setError(`Minimum support amount is ₦${MIN_DONATION_NAIRA}.`);
+      return;
+    }
+    if (!reason.trim()) {
+      setError("Please tell us why you are supporting our projects.");
+      return;
+    }
+    if (!PAYSTACK_KEY) {
+      setError("Online payments are not configured yet. Please email us to support.");
+      return;
+    }
 
     setLoading(true);
     try {
       await loadPaystackScript();
       window.PaystackPop?.setup({
         key: PAYSTACK_KEY,
-        email,
-        amount: amountKobo,
+        email: email.trim(),
+        firstname: firstName.trim(),
+        lastname: lastName.trim(),
+        amount: Math.round(naira * 100),
         currency: "NGN",
-        ref: `gdn_${Date.now()}`,
-        metadata: { custom_fields: [{ display_name: "Organization", variable_name: "organization", value: SITE.name }] },
+        ref: `gdn_project_${Date.now()}`,
+        metadata: {
+          custom_fields: [
+            { display_name: "Why supporting", variable_name: "support_reason", value: reason.trim().slice(0, 200) },
+          ],
+        },
         callback: () => {
-          alert("Thank you for supporting Good Deeds Network. Your gift makes outreach and free education possible.");
+          setSuccess(true);
+          setAmount("");
+          setReason("");
         },
         onClose: () => setLoading(false),
       }).openIframe();
     } catch {
-      alert("Unable to open payment right now. Please contact us directly.");
+      setError("Unable to open Paystack right now. Please try again in a moment.");
     } finally {
       setLoading(false);
     }
-  }, [amountKobo]);
+  }, [amount, email, firstName, lastName, reason]);
+
+  if (success) {
+    return (
+      <div className="rounded-2xl border border-primary/20 bg-card p-6 text-center shadow-[var(--shadow-card)] sm:p-8">
+        <div className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-primary/10 text-primary">
+          <Heart className="h-6 w-6" />
+        </div>
+        <h3 className="mt-5 font-display text-xl font-medium text-foreground">Thank you for supporting our projects</h3>
+        <p className="mt-2 text-sm text-muted-foreground">Your gift helps us build platforms that serve communities across Nigeria.</p>
+        <button type="button" onClick={() => setSuccess(false)} className="mt-6 text-sm font-semibold text-primary hover:text-primary-deep">
+          Support again
+        </button>
+      </div>
+    );
+  }
 
   return (
-    <button
-      type="button"
-      onClick={donate}
-      disabled={loading}
-      className={`inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-all disabled:opacity-60 ${
-        featured
-          ? "bg-accent text-accent-foreground hover:-translate-y-0.5"
-          : "bg-primary text-primary-foreground hover:bg-primary-deep"
-      } ${className}`}
-    >
-      {loading ? "Opening..." : label} <ArrowRight className="h-4 w-4" />
-    </button>
-  );
-}
+    <div className="rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-card)] sm:p-6 lg:sticky lg:top-24">
+      <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-primary">
+        <Lock className="h-3.5 w-3.5" /> Secured by Paystack
+      </div>
+      <h3 className="mt-3 font-display text-xl font-medium text-foreground sm:text-2xl">Support our projects</h3>
+      <p className="mt-1.5 text-sm text-muted-foreground">Any amount from ₦{MIN_DONATION_NAIRA}. No fixed packages.</p>
 
-export function DonationTiers() {
-  return (
-    <div className="grid gap-6 md:grid-cols-3">
-      {DONATION_TIERS.map((tier) => (
-        <div
-          key={tier.name}
-          className={`relative flex flex-col rounded-2xl border p-8 shadow-[var(--shadow-card)] ${
-            tier.featured
-              ? "border-primary bg-[image:var(--gradient-hero)] text-primary-foreground"
-              : "border-border bg-card"
-          }`}
-        >
-          {tier.featured && (
-            <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-accent px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-accent-foreground">
-              Most impact
-            </span>
-          )}
-          <p className={`text-xs font-semibold uppercase tracking-wider ${tier.featured ? "text-accent" : "text-primary"}`}>
-            {tier.name}
-          </p>
-          <p className={`mt-3 font-display text-5xl font-medium ${tier.featured ? "text-primary-foreground" : "text-foreground"}`}>
-            {tier.amountDisplay}
-          </p>
-          <p className={`mt-4 flex-1 ${tier.featured ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
-            {tier.body}
-          </p>
-          <div className="mt-8">
-            <PaystackDonateButton amountKobo={tier.amount} label={tier.cta} featured={tier.featured} className="w-full" />
+      <div className="mt-5 space-y-3.5">
+        <div className="grid gap-3.5 sm:grid-cols-2">
+          <Field label="First name" id="support-first" value={firstName} onChange={setFirstName} autoComplete="given-name" />
+          <Field label="Last name" id="support-last" value={lastName} onChange={setLastName} autoComplete="family-name" />
+        </div>
+        <Field label="Email" id="support-email" type="email" value={email} onChange={setEmail} autoComplete="email" inputMode="email" />
+        <div>
+          <label htmlFor="support-amount" className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+            Amount (NGN)
+          </label>
+          <div className="relative">
+            <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-semibold text-muted-foreground">₦</span>
+            <input
+              id="support-amount"
+              type="number"
+              inputMode="numeric"
+              min={MIN_DONATION_NAIRA}
+              step={100}
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              placeholder={`${MIN_DONATION_NAIRA} or more`}
+              className={`${inputClass} pl-9`}
+            />
           </div>
         </div>
-      ))}
+        <div>
+          <label htmlFor="support-reason" className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+            Why are you supporting us?
+          </label>
+          <textarea
+            id="support-reason"
+            rows={3}
+            value={reason}
+            onChange={(e) => setReason(e.target.value)}
+            placeholder="Tell us what inspired you to give..."
+            className={`${inputClass} resize-none`}
+          />
+        </div>
+
+        {error && (
+          <p className="rounded-lg border border-destructive/30 bg-destructive/5 px-3 py-2.5 text-sm text-destructive" role="alert">
+            {error}
+          </p>
+        )}
+
+        {!PAYSTACK_KEY && (
+          <p className="rounded-lg border border-amber-500/30 bg-amber-500/5 px-3 py-2.5 text-xs text-foreground/80">
+            Set <code>VITE_PAYSTACK_PUBLIC_KEY</code> in Vercel to enable payments.
+          </p>
+        )}
+
+        <button
+          type="button"
+          onClick={donate}
+          disabled={loading || !PAYSTACK_KEY}
+          className="flex w-full items-center justify-center gap-2 rounded-full bg-primary py-3.5 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-card)] hover:bg-primary-deep disabled:opacity-50"
+        >
+          {loading ? "Opening Paystack..." : "Support with Paystack"}
+          {!loading && <ArrowRight className="h-4 w-4" />}
+        </button>
+      </div>
+
+      <p className="mt-4 text-center text-[11px] leading-relaxed text-muted-foreground">
+        Card details are handled by Paystack. We never store them.
+      </p>
     </div>
   );
 }
 
-export function CustomDonation() {
-  const [amount, setAmount] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const donateCustom = useCallback(async () => {
-    const naira = Number(amount.replace(/,/g, ""));
-    if (!naira || naira < 100) {
-      alert("Please enter at least ₦100.");
-      return;
-    }
-
-    if (!PAYSTACK_KEY) {
-      window.location.href = `mailto:${SITE.email}?subject=Custom%20Donation&body=I%20would%20like%20to%20donate%20₦${naira}%20to%20Good%20Deeds%20Network.`;
-      return;
-    }
-
-    const email = window.prompt("Enter your email to continue with your donation:");
-    if (!email) return;
-
-    setLoading(true);
-    try {
-      await loadPaystackScript();
-      window.PaystackPop?.setup({
-        key: PAYSTACK_KEY,
-        email,
-        amount: naira * 100,
-        currency: "NGN",
-        ref: `gdn_custom_${Date.now()}`,
-        callback: () => alert("Thank you for your generous support."),
-        onClose: () => setLoading(false),
-      }).openIframe();
-    } catch {
-      alert("Unable to open payment right now. Please contact us directly.");
-    } finally {
-      setLoading(false);
-    }
-  }, [amount]);
-
+function Field({
+  label,
+  id,
+  type = "text",
+  value,
+  onChange,
+  autoComplete,
+  inputMode,
+}: {
+  label: string;
+  id: string;
+  type?: string;
+  value: string;
+  onChange: (v: string) => void;
+  autoComplete?: string;
+  inputMode?: "email" | "numeric" | "text";
+}) {
   return (
-    <div className="mx-auto mt-10 max-w-md rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)]">
-      <p className="text-center font-display text-lg font-medium text-foreground">Give any amount</p>
-      <p className="mt-2 text-center text-sm text-muted-foreground">
-        Every gift, large or small, fuels outreach, classes, and free resources.
-      </p>
-      <div className="mt-5 flex gap-3">
-        <div className="relative flex-1">
-          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-muted-foreground">₦</span>
-          <input
-            type="number"
-            min={100}
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder="5,000"
-            className="w-full rounded-xl border border-border bg-background py-3 pl-9 pr-4 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/20"
-          />
-        </div>
-        <button
-          type="button"
-          onClick={donateCustom}
-          disabled={loading}
-          className="rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary-deep disabled:opacity-60"
-        >
-          {loading ? "..." : "Give"}
-        </button>
-      </div>
-      {!PAYSTACK_KEY && (
-        <p className="mt-3 text-center text-xs text-muted-foreground">
-          Online payments will activate once Paystack is configured. You can also email us to give.
-        </p>
-      )}
+    <div>
+      <label htmlFor={id} className="mb-1 block text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+        {label}
+      </label>
+      <input
+        id={id}
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        autoComplete={autoComplete}
+        inputMode={inputMode}
+        className={inputClass}
+      />
     </div>
   );
 }
