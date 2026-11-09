@@ -1,6 +1,6 @@
 # Good Deeds Network
 
-Nonprofit marketing site. Keep commits focused and the main branch deployable.
+Good Deeds Network marketing site. Keep commits focused and the main branch deployable.
 
 ## Images (important)
 

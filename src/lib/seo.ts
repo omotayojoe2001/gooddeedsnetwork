@@ -3,12 +3,12 @@ import { SITE, SOCIAL, ASSETS } from "./site-data";
 export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
-    "@type": "NGO",
+    "@type": "Organization",
     name: SITE.name,
     url: SITE.url,
     logo: `${SITE.url}${ASSETS.logo}`,
     description:
-      "A licensed and registered nonprofit building a trusted tech platform that connects people who have something to give with those who need to receive. Community outreach, free classes, and resources in Lagos, Nigeria.",
+      "A trusted tech platform that connects people who have something to give with those who need to receive. Community outreach, free classes, and resources in Lagos, Nigeria.",
     email: SITE.email,
     telephone: SITE.phone,
     address: {

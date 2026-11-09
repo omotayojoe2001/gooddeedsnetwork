@@ -1,6 +1,6 @@
 # Good Deeds Network
 
-Marketing website for Good Deeds Network, a nonprofit in Lagos, Nigeria connecting givers and receivers through community outreach, free marketing classes, and volunteer powered support.
+Marketing website for Good Deeds Network in Lagos, Nigeria connecting givers and receivers through community outreach, free marketing classes, and volunteer powered support.
 
 ## Development
 

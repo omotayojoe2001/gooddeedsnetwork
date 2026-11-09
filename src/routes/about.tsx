@@ -11,7 +11,7 @@ export const Route = createFileRoute("/about")({
       { title: `About | ${SITE.name}` },
       {
         name: "description",
-        content: `Founded in ${SITE.founded} by ${SITE.founder}, ${SITE.name} is a licensed and registered nonprofit building a trusted platform for connecting givers and receivers.`,
+        content: `Founded in ${SITE.founded} by ${SITE.founder}, ${SITE.name} is building a trusted platform for connecting givers and receivers.`,
       },
       { name: "robots", content: "index, follow" },
       { property: "og:title", content: `About ${SITE.name}` },
@@ -31,7 +31,7 @@ function About() {
       <PageHero
         eyebrow="About us"
         title="Ordinary people, doing extraordinary good."
-        description={`Founded in ${SITE.founded} by ${SITE.founder}. We are a licensed and registered nonprofit and ${SITE.role.toLowerCase()} building a trusted platform for connecting givers and receivers.`}
+        description={`Founded in ${SITE.founded} by ${SITE.founder}. We are a ${SITE.role.toLowerCase()} building a trusted platform for connecting givers and receivers.`}
       />
 
       <section className="mx-auto max-w-7xl px-6 py-24">

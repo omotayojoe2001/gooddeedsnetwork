@@ -18,7 +18,7 @@ export function SiteFooter() {
           <div>
             <BrandLogo link={false} imageClassName="h-12 w-12 rounded-xl object-cover shadow-[var(--shadow-card)]" />
             <p className="mt-5 text-sm leading-relaxed text-primary-foreground/75">
-              {SITE.role} since {SITE.founded}. A licensed and registered nonprofit founded by {SITE.founder}.
+              {SITE.role} since {SITE.founded}. Founded by {SITE.founder}.
             </p>
           </div>
 
@@ -72,7 +72,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-primary-foreground/10 pt-6 text-xs text-primary-foreground/60 md:flex-row">
-          <p>© {new Date().getFullYear()} {SITE.name}. Licensed and registered nonprofit.</p>
+          <p>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
           <p>Founded by {SITE.founder}</p>
         </div>
       </div>

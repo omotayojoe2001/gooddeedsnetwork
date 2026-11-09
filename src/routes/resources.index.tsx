@@ -22,7 +22,7 @@ export const Route = createFileRoute("/resources/")({
 const writtenResources = [
   { icon: BookOpen, tag: "Guide", title: "WhatsApp for Business Playbook", body: "Turn WhatsApp into your number one sales channel.", type: "Coming soon" },
   { icon: BookOpen, tag: "Guide", title: "Volunteer Handbook", body: "Everything a new Good Deeds Network volunteer needs to know.", type: "Coming soon" },
-  { icon: BookOpen, tag: "Guide", title: "Nonprofit Outreach Checklist", body: "The exact list we use to plan every community outreach.", type: "Coming soon" },
+  { icon: BookOpen, tag: "Guide", title: "Community Outreach Checklist", body: "The exact list we use to plan every community outreach.", type: "Coming soon" },
 ];
 
 function Resources() {

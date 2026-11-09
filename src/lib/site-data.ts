@@ -3,7 +3,7 @@ export const SITE = {
   tagline: "The tech connector for givers and receivers",
   role: "Tech connector",
   description:
-    "Good Deeds Network is a licensed and registered nonprofit building a trusted platform for connecting givers and receivers across Lagos and beyond.",
+    "Good Deeds Network is building a trusted platform for connecting givers and receivers across Lagos and beyond.",
   vision:
     "What if generosity were as easy as ordering a ride? What if the person who has an extra bag of rice could find, safely and quickly, the family that needs it? What if you needed a teacher to help with an exam or test, or simply someone to talk to?",
   heroLead:
